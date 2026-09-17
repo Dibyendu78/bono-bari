@@ -1,0 +1,365 @@
+/* ─── MarqueeSection Styles (3-Row Cinematic Photo Gallery) ───────────────── */
+.marquee-section {
+  background-color: #0C0C0C;
+  padding-top: 80px;
+  padding-bottom: 48px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+@media (min-width: 640px) {
+  .marquee-section {
+    padding-top: 108px;
+    padding-bottom: 56px;
+  }
+}
+
+@media (min-width: 768px) {
+  .marquee-section {
+    padding-top: 130px;
+    padding-bottom: 64px;
+  }
+}
+
+.marquee-rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@keyframes marquee-drift-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-drift-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-row {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-row-drift-left {
+  animation: marquee-drift-left 36s linear infinite;
+}
+
+.marquee-row-drift-right {
+  animation: marquee-drift-right 40s linear infinite;
+}
+
+.marquee-row-drift-left-alt {
+  animation: marquee-drift-left 42s linear infinite;
+}
+
+/* Hover pause on desktop so user can easily click any photo */
+@media (hover: hover) {
+  .marquee-row:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* Pause when modal is active */
+body.gallery-modal-open .marquee-row {
+  animation-play-state: paused !important;
+}
+
+/* ─── Interactive Gallery Tile ───────────────────────────────────────────── */
+.marquee-tile-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 18px;
+  overflow: hidden;
+  user-select: none;
+  background-color: #1a1d24;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.marquee-tile-wrapper:hover {
+  transform: scale(1.035);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(74, 222, 128, 0.25);
+  z-index: 10;
+}
+
+.marquee-tile {
+  width: clamp(280px, 26vw, 380px);
+  height: clamp(170px, 17vw, 240px);
+  border-radius: 18px;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.25s ease;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.marquee-tile-wrapper:hover .marquee-tile {
+  filter: saturate(1.15) contrast(1.06) brightness(0.9);
+}
+
+.marquee-tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 18px;
+}
+
+.marquee-tile-wrapper:hover .marquee-tile-overlay {
+  opacity: 1;
+}
+
+.marquee-tile-zoom-icon {
+  color: #FFFFFF;
+  background: rgba(12, 17, 24, 0.8);
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  padding: 8px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  transform: scale(0.85);
+  transition: transform 0.2s ease;
+}
+
+.marquee-tile-wrapper:hover .marquee-tile-zoom-icon {
+  transform: scale(1);
+}
+
+/* ─── FULLSCREEN POPUP LIGHTBOX MODAL ────────────────────────────────────── */
+.marquee-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5, 8, 12, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: modalFadeIn 0.25s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.marquee-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(16, 22, 28, 0.9);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(34, 197, 94, 0.15);
+  overflow: hidden;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Modal Top Bar */
+.marquee-modal-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(10, 14, 20, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.marquee-modal-badge {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4ade80;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.marquee-modal-top-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.marquee-modal-counter {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(215, 226, 234, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.marquee-modal-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #D7E2EA;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.marquee-modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  color: #FFFFFF;
+  transform: scale(1.08);
+}
+
+/* Modal Viewport with Image and Prev/Next Navigation */
+.marquee-modal-viewport {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px 24px 20px;
+  min-height: 340px;
+  max-height: calc(92vh - 72px);
+  overflow: hidden;
+}
+
+.marquee-modal-image-container {
+  max-width: 100%;
+  max-height: calc(92vh - 110px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marquee-modal-image {
+  max-width: 100%;
+  max-height: calc(92vh - 120px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.marquee-modal-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(10, 16, 24, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.marquee-modal-nav-btn.is-prev {
+  left: 20px;
+}
+
+.marquee-modal-nav-btn.is-next {
+  right: 20px;
+}
+
+.marquee-modal-nav-btn:hover {
+  background: #16a34a;
+  border-color: #4ade80;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 28px rgba(34, 197, 94, 0.45);
+}
+
+@media (max-width: 640px) {
+  .marquee-section {
+    padding-top: 60px;
+    padding-bottom: 36px;
+  }
+  .marquee-rows-container {
+    gap: 10px;
+  }
+  .marquee-row {
+    gap: 10px;
+  }
+  .marquee-tile {
+    width: 240px;
+    height: 150px;
+    border-radius: 14px;
+  }
+  .marquee-modal-dialog {
+    max-height: 88vh;
+    border-radius: 18px;
+  }
+  .marquee-modal-topbar {
+    padding: 12px 14px;
+  }
+  .marquee-modal-badge {
+    font-size: 11px;
+    max-width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .marquee-modal-viewport {
+    padding: 10px;
+    min-height: 240px;
+  }
+  .marquee-modal-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .marquee-modal-nav-btn.is-prev {
+    left: 6px;
+  }
+  .marquee-modal-nav-btn.is-next {
+    right: 6px;
+  }
+}

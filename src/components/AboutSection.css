@@ -1,0 +1,195 @@
+/* ─── AboutSection Styles ────────────────────────────────────────────────── */
+.about-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #0C0C0C;
+  padding: 80px 20px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .about-section {
+    padding: 80px 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-section {
+    padding: 80px 40px;
+  }
+}
+
+/* Four Decorative 3D Images */
+.about-decor-moon {
+  position: absolute;
+  top: 4%;
+  left: 1%;
+  width: 120px;
+  pointer-events: none;
+  z-index: 5;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .about-decor-moon {
+    left: 2%;
+    width: 160px;
+  }
+}
+@media (min-width: 768px) {
+  .about-decor-moon {
+    left: 4%;
+    width: 210px;
+  }
+}
+
+.about-decor-p59 {
+  position: absolute;
+  bottom: 8%;
+  left: 3%;
+  width: 100px;
+  pointer-events: none;
+  z-index: 5;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .about-decor-p59 {
+    left: 6%;
+    width: 140px;
+  }
+}
+@media (min-width: 768px) {
+  .about-decor-p59 {
+    left: 10%;
+    width: 180px;
+  }
+}
+
+.about-decor-lego {
+  position: absolute;
+  top: 4%;
+  right: 1%;
+  width: 120px;
+  pointer-events: none;
+  z-index: 5;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .about-decor-lego {
+    right: 2%;
+    width: 160px;
+  }
+}
+@media (min-width: 768px) {
+  .about-decor-lego {
+    right: 4%;
+    width: 210px;
+  }
+}
+
+.about-decor-group {
+  position: absolute;
+  bottom: 8%;
+  right: 3%;
+  width: 130px;
+  pointer-events: none;
+  z-index: 5;
+  user-select: none;
+}
+@media (min-width: 640px) {
+  .about-decor-group {
+    right: 6%;
+    width: 170px;
+  }
+}
+@media (min-width: 768px) {
+  .about-decor-group {
+    right: 10%;
+    width: 220px;
+  }
+}
+
+/* Centered Content Stack */
+.about-content-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 720px;
+  z-index: 10;
+}
+
+.about-heading {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-align: center;
+  font-size: clamp(2rem, 6.5vw, 96px);
+  margin: 0;
+  line-height: 1.05;
+  max-width: 900px;
+}
+
+@media (max-width: 640px) {
+  .about-decor-moon,
+  .about-decor-p59,
+  .about-decor-lego,
+  .about-decor-group {
+    opacity: 0.22;
+    width: 70px;
+  }
+  .about-heading {
+    font-size: clamp(1.75rem, 8vw, 32px);
+  }
+  .about-paragraph {
+    font-size: 0.92rem;
+    padding: 0 8px;
+    line-height: 1.6;
+  }
+}
+
+/* Spacing gaps */
+.about-spacer-top {
+  height: 40px; /* gap-10 */
+}
+@media (min-width: 640px) {
+  .about-spacer-top {
+    height: 56px; /* sm:gap-14 */
+  }
+}
+@media (min-width: 768px) {
+  .about-spacer-top {
+    height: 64px; /* md:gap-16 */
+  }
+}
+
+.about-paragraph {
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.625; /* leading-relaxed */
+  max-width: 560px;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  margin: 0 auto;
+}
+
+.about-spacer-bottom {
+  height: 64px; /* gap-16 */
+}
+@media (min-width: 640px) {
+  .about-spacer-bottom {
+    height: 80px; /* sm:gap-20 */
+  }
+}
+@media (min-width: 768px) {
+  .about-spacer-bottom {
+    height: 96px; /* md:gap-24 */
+  }
+}

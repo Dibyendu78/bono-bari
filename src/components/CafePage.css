@@ -1,0 +1,930 @@
+/* ─── CafePage Stage Layout: 3D Character Front-Right & Scrollable Menu Left ─── */
+.cafe-stage-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #0C0C0C;
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  user-select: none;
+}
+
+.cafe-stage-page.font-bengali {
+  font-family: 'Hind Siliguri', 'Kanit', sans-serif;
+}
+
+/* ─── 1. FULL-BLEED 3D VIDEO BACKGROUND (RABBIT ON RIGHT IS NEVER COVERED) ─── */
+.cafe-fullscreen-video-holder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cafe-stage-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  display: block;
+  filter: contrast(1.04) saturate(1.06);
+}
+
+/* Left Scrim: Gently dims ONLY the left 52% behind the menu text for 100% legibility,
+   leaving the right half (where the 3D character is) completely clear, crisp & bright! */
+.cafe-stage-left-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 14, 18, 0.94) 0%,
+    rgba(10, 14, 18, 0.88) 32%,
+    rgba(10, 14, 18, 0.65) 45%,
+    rgba(10, 14, 18, 0.2) 54%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .cafe-stage-left-scrim {
+    /* Soft left gradient behind the column menu, keeping the 3D character bright and clear */
+    background: linear-gradient(
+      90deg,
+      rgba(10, 14, 18, 0.75) 0%,
+      rgba(10, 14, 18, 0.42) 36%,
+      rgba(10, 14, 18, 0.08) 52%,
+      transparent 68%
+    );
+  }
+  .cafe-stage-video {
+    object-position: 70% center !important;
+  }
+}
+
+/* ─── 2. TOP STICKY NAVBAR ───────────────────────────────────────────────── */
+.cafe-stage-navbar {
+  position: relative;
+  z-index: 40;
+  height: 64px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: rgba(12, 17, 16, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(74, 222, 128, 0.22);
+}
+
+@media (min-width: 768px) {
+  .cafe-stage-navbar {
+    padding: 0 36px;
+    height: 68px;
+  }
+}
+
+.cafe-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(215, 226, 234, 0.25);
+  color: #D7E2EA;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cafe-back-btn:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  transform: translateX(-3px);
+}
+
+.cafe-stage-brand {
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.cafe-stage-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cafe-sound-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #e2e8f0;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cafe-sound-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  border-color: #38bdf8;
+}
+
+.cafe-lang-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #79dce8;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cafe-lang-toggle-btn:hover {
+  background: rgba(14, 165, 233, 0.22);
+  border-color: #38bdf8;
+  color: #FFFFFF;
+}
+
+.cafe-navbar-reserve-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  border: 1px solid #4ade80;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.cafe-navbar-reserve-btn:hover {
+  background: #15803d;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+  transform: scale(1.03);
+}
+
+@media (max-width: 640px) {
+  .cafe-stage-navbar {
+    padding: 0 12px;
+    height: 56px;
+  }
+  .cafe-stage-body {
+    height: calc(100vh - 56px);
+  }
+  .cafe-stage-brand {
+    font-size: 13px;
+    max-width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cafe-back-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  .cafe-navbar-reserve-btn span {
+    display: none;
+  }
+  .cafe-sound-toggle-btn span {
+    display: none;
+  }
+  .cafe-lang-toggle-btn {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+  .cafe-scrollable-menu-panel {
+    padding: 12px 14px;
+  }
+  .cafe-panel-title {
+    font-size: clamp(1.45rem, 5vw, 24px);
+  }
+  .cafe-panel-desc {
+    font-size: 12px;
+  }
+  .cafe-filter-tabs {
+    gap: 6px;
+  }
+  .cafe-filter-pill {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  .cafe-glass-dish-card {
+    padding: 12px 14px;
+  }
+}
+
+/* ─── 3. STAGE BODY: MENU SCROLLS ON LEFT, 3D RABBIT IS FIXED ON RIGHT ───── */
+.cafe-stage-body {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .cafe-stage-body {
+    height: calc(100vh - 68px);
+  }
+}
+
+/* ─── LEFT PANEL: THE ONLY SCROLLABLE AREA (Page Does Not Scroll) ────────── */
+.cafe-scrollable-menu-panel {
+  width: 50%;
+  max-width: 620px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 16px 32px;
+  box-sizing: border-box;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+@media (min-width: 1400px) {
+  .cafe-scrollable-menu-panel {
+    max-width: 680px;
+    padding-left: 48px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .cafe-scrollable-menu-panel {
+    width: 54%;
+    padding-left: 24px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 860px) {
+  .cafe-scrollable-menu-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 86vh;
+    max-height: 86vh;
+    z-index: 60;
+    background: rgba(10, 16, 13, 0.95);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-top: 1px solid rgba(74, 222, 128, 0.45);
+    border-radius: 28px 28px 0 0;
+    padding: 16px 18px 24px 18px;
+    box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.9);
+    transform: translateY(105%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  }
+
+  .cafe-scrollable-menu-panel.mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Panel Header (Fixed above scroll track) */
+.cafe-panel-header {
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.cafe-panel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+}
+
+.cafe-panel-title {
+  font-size: clamp(1.85rem, 3.6vw, 44px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px 0;
+  background: linear-gradient(180deg, #FFFFFF 30%, #BBCCD7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cafe-panel-desc {
+  font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+  font-weight: 300;
+  color: rgba(215, 226, 234, 0.85);
+  line-height: 1.45;
+  margin: 0 0 10px 0;
+  max-width: 520px;
+}
+
+.cafe-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.cafe-panel-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  color: #4ade80;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cafe-panel-wa-btn:hover {
+  background: rgba(34, 197, 94, 0.28);
+  border-color: #22c55e;
+  transform: translateY(-2px);
+}
+
+.cafe-panel-wa-btn strong {
+  color: #FFFFFF;
+}
+
+/* Category Filter Tabs */
+.cafe-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 4px;
+}
+
+.cafe-filter-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #D7E2EA;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.cafe-filter-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.cafe-filter-pill.is-active {
+  background: #16a34a;
+  border-color: #4ade80;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.4);
+}
+
+/* ─── SCROLLABLE DISH CARDS TRACK ────────────────────────────────────────── */
+.cafe-cards-scroll-track {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding-right: 10px;
+  margin-top: 6px;
+}
+
+/* Sleek Emerald Scrollbar */
+.cafe-cards-scroll-track::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cafe-cards-scroll-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9999px;
+}
+
+.cafe-cards-scroll-track::-webkit-scrollbar-thumb {
+  background: rgba(74, 222, 128, 0.45);
+  border-radius: 9999px;
+}
+
+.cafe-cards-scroll-track::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.75);
+}
+
+.cafe-dish-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Glass Dish Card: Blends with the background but remains 100% legible */
+.cafe-glass-dish-card {
+  background: rgba(14, 22, 18, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.cafe-glass-dish-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(74, 222, 128, 0.6);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 18px rgba(34, 197, 94, 0.2);
+}
+
+.cafe-dish-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.cafe-dish-cat-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cafe-dish-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.cafe-dish-dot.is-veg {
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+.cafe-dish-dot.is-nonveg {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+.cafe-dish-category {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(215, 226, 234, 0.7);
+}
+
+.cafe-dish-special-pill {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(250, 204, 21, 0.16);
+  border: 1px solid rgba(250, 204, 21, 0.45);
+  color: #facc15;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cafe-dish-special-pill.is-hilsa {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #38bdf8;
+}
+
+.cafe-dish-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.cafe-dish-name {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.cafe-dish-price {
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  font-weight: 800;
+  color: #facc15;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.cafe-dish-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(215, 226, 234, 0.85);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.cafe-dish-bottom {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cafe-dish-order-btn {
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  color: #4ade80;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.cafe-dish-order-btn:hover {
+  background: #16a34a;
+  border-color: #4ade80;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+/* Dining info banner at bottom of scroll list */
+.cafe-panel-footer-card {
+  background: rgba(10, 20, 15, 0.82);
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  border-radius: 18px;
+  padding: 20px 18px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cafe-footer-title {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 6px 0;
+}
+
+.cafe-footer-text {
+  font-size: 12px;
+  color: rgba(215, 226, 234, 0.8);
+  line-height: 1.5;
+  margin: 0 0 14px 0;
+}
+
+.cafe-footer-reserve-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  border: 1px solid #4ade80;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cafe-footer-reserve-btn:hover {
+  background: #15803d;
+  transform: scale(1.04);
+}
+
+/* ─── RIGHT AREA: UNCOVERED 3D RABBIT VIEW AREA ──────────────────────────── */
+.cafe-model-view-area {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 24px 36px;
+  pointer-events: none;
+}
+
+.cafe-model-tag-pill {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(12, 18, 26, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(250, 204, 21, 0.55);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(250, 204, 21, 0.25);
+  padding: 7px 18px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #facc15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cafe-sparkle-gold {
+  color: #facc15;
+}
+
+@media (max-width: 860px) {
+  .cafe-model-view-area {
+    display: none;
+  }
+}
+
+/* Desktop default: mobile drawer controls and sidebar column are hidden */
+.cafe-mobile-sidebar-col,
+.cafe-mobile-drawer-header,
+.cafe-mobile-drawer-backdrop {
+  display: none !important;
+}
+
+@media (max-width: 860px) {
+  /* Mobile Backdrop when drawer is open */
+  .cafe-mobile-drawer-backdrop {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: drawer-fade-in 0.25s ease forwards;
+  }
+
+  @keyframes drawer-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Drawer Top Close Bar */
+  .cafe-mobile-drawer-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    flex-shrink: 0;
+  }
+
+  .cafe-mobile-drawer-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #4ade80;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .cafe-mobile-close-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cafe-mobile-close-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  /* ─── Mobile Vertical Sidebar Column: Exactly where the 3D rabbit's hand points! ─── */
+  .cafe-mobile-sidebar-col {
+    display: flex !important;
+    position: fixed;
+    left: 12px;
+    top: 45%;
+    transform: translateY(-50%);
+    width: clamp(160px, 44vw, 205px);
+    z-index: 35;
+    background: rgba(10, 16, 14, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(74, 222, 128, 0.45);
+    border-radius: 18px;
+    padding: 14px 12px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(34, 197, 94, 0.25);
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    pointer-events: auto;
+  }
+
+  .cafe-mobile-sidebar-col.is-hidden {
+    transform: translate(-120%, -50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cafe-col-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 7px;
+    margin-bottom: 2px;
+  }
+
+  .cafe-col-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #4ade80;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .cafe-col-sub {
+    font-size: 10px;
+    color: rgba(215, 226, 234, 0.7);
+  }
+
+  .cafe-col-cat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .cafe-col-cat-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #D7E2EA;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 7px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+
+  .cafe-col-cat-btn:active {
+    background: rgba(74, 222, 128, 0.22);
+    border-color: #4ade80;
+    color: #FFFFFF;
+    transform: scale(0.98);
+  }
+
+  .cafe-col-cat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    margin-right: 6px;
+    flex-shrink: 0;
+  }
+
+  .cafe-col-cat-arr {
+    font-size: 11px;
+    color: rgba(215, 226, 234, 0.5);
+  }
+
+  .cafe-col-explore-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    border: 1px solid #4ade80;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 10px 12px;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+    margin-top: 3px;
+  }
+
+  .cafe-col-explore-btn:active {
+    transform: scale(0.96);
+  }
+
+  .cafe-col-wa-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #4ade80;
+    font-family: inherit;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 9999px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* Animated pulse dot on the right side of the column facing the model */
+  .cafe-col-pointer-glow {
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .cafe-pointer-pulse-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 14px #4ade80;
+    animation: dot-pulse 1.5s infinite ease-in-out;
+  }
+
+  @keyframes dot-pulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.4); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.5; }
+  }
+}

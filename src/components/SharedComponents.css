@@ -1,0 +1,124 @@
+/* ─── Shared Components CSS ─────────────────────────────────────────────── */
+
+/* ─── Contact Pill Button (Exact Spec) ──────────────────────────────────── */
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+  box-shadow: 0px 4px 4px rgba(181, 1, 167, 0.25), inset 4px 4px 12px #7721B1;
+  outline: 2px solid #FFFFFF;
+  outline-offset: -3px;
+  color: #FFFFFF;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  padding: 12px 28px;
+  font-size: 0.85rem;
+  transition: transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.25s ease;
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .contact-btn {
+    padding: 14px 38px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-btn {
+    padding: 16px 46px;
+    font-size: 1.05rem;
+  }
+}
+
+.contact-btn:hover {
+  transform: scale(1.04);
+  filter: brightness(1.12);
+}
+
+.contact-btn:active {
+  transform: scale(0.97);
+}
+
+/* ─── Live Project / Ghost Button (Exact Spec) ──────────────────────────── */
+.live-project-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 2px solid #D7E2EA;
+  background: transparent;
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .live-project-btn {
+    padding: 12px 32px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .live-project-btn {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  .contact-btn {
+    padding: 10px 22px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+.live-project-btn:hover {
+  background-color: rgba(215, 226, 234, 0.12);
+  border-color: #FFFFFF;
+}
+
+.live-project-btn:active {
+  transform: scale(0.97);
+}
+
+/* ─── Magnet Wrapper ────────────────────────────────────────────────────── */
+.magnet-wrapper {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ─── Animated Text Character ───────────────────────────────────────────── */
+.anim-char-container {
+  position: relative;
+  display: inline-block;
+}
+
+.anim-char-ghost {
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.anim-char-visible {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

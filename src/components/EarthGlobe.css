@@ -1,0 +1,106 @@
+/* ─── EarthGlobe Styles ─────────────────────────────────────────────────── */
+.earth-globe-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: grab;
+  touch-action: none;
+  overflow: visible;
+}
+
+.earth-globe-wrapper:active {
+  cursor: grabbing;
+}
+
+.earth-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  outline: none;
+  pointer-events: auto;
+}
+
+/* ─── 3D Projected Screen Pin Overlay at Jhargram ────────────────────────── */
+.earth-jhargram-3d-pin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(-9999px, -9999px, 0);
+  margin-top: -36px;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 25;
+  transition: opacity 0.3s ease;
+  user-select: none;
+  opacity: 0;
+}
+
+.earth-pin-radar-ring {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+  position: absolute;
+  left: 0;
+  top: 18px;
+  transform: translate(-50%, -50%);
+  animation: pin-radar 1.8s infinite ease-out;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+@keyframes pin-radar {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.8);
+    opacity: 0;
+  }
+}
+
+.earth-pin-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 16, 26, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.65);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.85), 0 0 18px rgba(56, 189, 248, 0.4);
+  border-radius: 9999px;
+  padding: 5px 15px;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+.earth-pin-leaf {
+  font-size: 13px;
+}
+
+.earth-pin-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.earth-pin-title {
+  color: #FFFFFF;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.earth-pin-coords {
+  color: #38bdf8;
+  font-size: 9.5px;
+  font-family: monospace;
+  letter-spacing: 0.02em;
+}

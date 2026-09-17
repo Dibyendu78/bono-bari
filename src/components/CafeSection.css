@@ -1,0 +1,265 @@
+/* ─── CafeSection Styles (Bonobhoj Cafe) ─────────────────────────────────── */
+.cafe-section {
+  position: relative;
+  background: radial-gradient(circle at 50% 20%, #0c1c14 0%, #06110b 50%, #0C0C0C 100%);
+  padding: 100px 20px 120px 20px;
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  z-index: 15;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .cafe-section {
+    padding: 120px 32px 140px 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cafe-section {
+    padding: 140px 48px 160px 48px;
+  }
+}
+
+.cafe-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 48px auto;
+}
+
+.cafe-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  color: #4ade80;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+}
+
+.cafe-title {
+  font-size: clamp(3rem, 9vw, 110px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px 0;
+  color: #FFFFFF;
+}
+
+.cafe-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 300;
+  color: rgba(215, 226, 234, 0.78);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Category Filter Tabs */
+.cafe-tabs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.cafe-tab-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cafe-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cafe-tab-btn.active {
+  background: #16a34a;
+  border-color: #4ade80;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.4);
+}
+
+/* Menu Items Grid */
+.cafe-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .cafe-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cafe-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+/* Individual Dish Card */
+.cafe-card {
+  position: relative;
+  background: rgba(14, 26, 19, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(34, 197, 94, 0.22);
+  border-radius: 20px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cafe-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.55);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(34, 197, 94, 0.15);
+}
+
+.cafe-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cafe-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cafe-card-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.cafe-tag-veg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4ade80;
+}
+
+.cafe-tag-dot-veg {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.cafe-tag-nonveg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fb7185;
+}
+
+.cafe-tag-dot-nonveg {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e11d48;
+}
+
+.cafe-item-name {
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.cafe-item-price {
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 800;
+  color: #facc15; /* Bright warm gold */
+  font-family: 'Kanit', sans-serif;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cafe-item-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(215, 226, 234, 0.72);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Card Bottom Action */
+.cafe-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cafe-category-badge {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(215, 226, 234, 0.45);
+}
+
+.cafe-order-btn {
+  background: transparent;
+  border: 1px solid rgba(215, 226, 234, 0.3);
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.cafe-order-btn:hover {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: #4ade80;
+  color: #4ade80;
+}

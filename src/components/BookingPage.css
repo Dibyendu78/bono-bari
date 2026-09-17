@@ -1,0 +1,344 @@
+/* ─── Dedicated Booking Page Styles ───────────────────────────────────────── */
+.booking-page-root {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #000000;
+  color: #F8FAFC;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-page-root.font-bengali {
+  font-family: 'Hind Siliguri', 'Inter', sans-serif;
+}
+
+/* ─── Top Sticky Navbar ─────────────────────────────────────────────────── */
+.booking-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  height: 64px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .booking-navbar {
+    height: 70px;
+  }
+}
+
+.booking-navbar-inner {
+  max-width: 1160px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .booking-navbar-inner {
+    padding: 0 32px;
+  }
+}
+
+.booking-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #E2E8F0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.booking-back-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateX(-3px);
+}
+
+.booking-brand-title {
+  font-size: clamp(12px, 1.6vw, 15px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 640px) {
+  .booking-brand-title {
+    display: none;
+  }
+}
+
+.booking-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.booking-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #79dce8;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.booking-lang-btn:hover {
+  background: rgba(14, 165, 233, 0.2);
+  border-color: #38bdf8;
+  color: #FFFFFF;
+}
+
+.booking-wa-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.booking-wa-pill-btn:hover {
+  background: rgba(34, 197, 94, 0.28);
+  border-color: #22c55e;
+  transform: translateY(-1px);
+}
+
+/* ─── Hero Intro Banner ──────────────────────────────────────────────────── */
+.booking-hero-intro {
+  max-width: 900px;
+  margin: 40px auto 10px auto;
+  padding: 0 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .booking-hero-intro {
+    margin: 56px auto 14px auto;
+  }
+}
+
+.booking-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+}
+
+.booking-hero-heading {
+  font-size: clamp(2rem, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+}
+
+.booking-hero-sub {
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+  max-width: 620px;
+}
+
+/* ─── Direct Resort WhatsApp Reservation Banner ──────────────────────────── */
+.booking-resort-banner-wrap {
+  max-width: 1080px;
+  width: 100%;
+  margin: 20px auto 60px auto;
+  padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+  .booking-resort-banner-wrap {
+    padding: 0 32px;
+    margin-bottom: 80px;
+  }
+}
+
+.booking-resort-banner-card {
+  background: radial-gradient(circle at 80% 50%, rgba(34, 197, 94, 0.12) 0%, rgba(14, 24, 18, 0.75) 100%);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 24px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 860px) {
+  .booking-resort-banner-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 36px;
+  }
+}
+
+.booking-resort-left {
+  max-width: 580px;
+}
+
+.booking-resort-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: #4ade80;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  margin-bottom: 10px;
+}
+
+.booking-resort-title {
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.booking-resort-desc {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.booking-resort-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.booking-resort-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  border: 1px solid #4ade80;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.booking-resort-btn-primary:hover {
+  background: #15803d;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+  transform: translateY(-2px);
+}
+
+.booking-resort-btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.booking-resort-btn-wa:hover {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: #4ade80;
+  color: #4ade80;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .booking-navbar-inner {
+    padding: 0 14px;
+    gap: 8px;
+  }
+  .booking-hero-intro {
+    margin: 24px auto 8px auto;
+    padding: 0 16px;
+  }
+  .booking-hero-heading {
+    font-size: clamp(1.6rem, 6vw, 28px);
+  }
+  .booking-resort-banner-wrap {
+    padding: 0 14px;
+    margin: 16px auto 40px auto;
+  }
+  .booking-resort-banner-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+  .booking-resort-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  .booking-resort-btn-primary,
+  .booking-resort-btn-wa {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}

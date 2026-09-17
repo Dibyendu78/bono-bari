@@ -1,0 +1,7 @@
+/* ─── App Styles ─────────────────────────────────────────────────────────── */
+.app-container {
+  width: 100%;
+  overflow-x: clip;
+  background-color: #0C0C0C;
+  position: relative;
+}
