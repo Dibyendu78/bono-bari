@@ -229,31 +229,55 @@ export default function EarthGlobe({
 
     earthGroup.add(markerGroup);
 
-    // ── 9. Interactive Drag Rotation ──────────────────────────────────────
+    // ── 9. Interactive Drag Rotation (Only when finger touches Earth sphere) ──
+    const raycaster = new THREE.Raycaster();
+    const mouseCoord = new THREE.Vector2();
+
+    const isTouchOnEarth = (clientX, clientY) => {
+      if (!renderer || !renderer.domElement) return false;
+      const rect = renderer.domElement.getBoundingClientRect();
+      if (
+        clientX < rect.left || clientX > rect.right ||
+        clientY < rect.top || clientY > rect.bottom
+      ) {
+        return false;
+      }
+      mouseCoord.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      mouseCoord.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(mouseCoord, camera);
+      const hits = raycaster.intersectObject(earthMesh, false);
+      return hits.length > 0;
+    };
+
     let isDragging = false;
     let prevX = 0;
     let prevY = 0;
     let velX = 0;
     let velY = 0;
 
-    const onPointerDown = (e) => {
-      // Allow drag in HERO mode or subtle pan in ARRIVED mode
+    // Desktop Mouse Drag Handler (Only initiates when clicking directly on Earth sphere)
+    const onMouseDown = (e) => {
       if (stageRef.current === 'ZOOMING') return;
+      if (e.button !== 0) return; // Left click only
+
+      if (!isTouchOnEarth(e.clientX, e.clientY)) {
+        isDragging = false;
+        return;
+      }
+
       isDragging = true;
-      prevX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-      prevY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+      prevX = e.clientX;
+      prevY = e.clientY;
       velX = 0;
       velY = 0;
     };
 
-    const onPointerMove = (e) => {
+    const onMouseMove = (e) => {
       if (!isDragging) return;
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX) || prevX;
-      const clientY = e.clientY || (e.touches && e.touches[0].clientY) || prevY;
-      const deltaX = clientX - prevX;
-      const deltaY = clientY - prevY;
-      prevX = clientX;
-      prevY = clientY;
+      const deltaX = e.clientX - prevX;
+      const deltaY = e.clientY - prevY;
+      prevX = e.clientX;
+      prevY = e.clientY;
 
       const factor = stageRef.current === 'ARRIVED' ? 0.001 : 0.0035;
       velY = deltaX * factor;
@@ -264,17 +288,70 @@ export default function EarthGlobe({
       earthGroup.quaternion.setFromEuler(new THREE.Euler(rotX, rotY, 0, 'YXZ'));
     };
 
-    const onPointerUp = () => {
+    const onMouseUp = () => {
       isDragging = false;
     };
 
-    container.addEventListener('pointerdown', onPointerDown);
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
+    // Mobile / Touch Drag Handler (STRICT: Only when finger is directly on the Earth sphere)
+    const onTouchStart = (e) => {
+      if (stageRef.current === 'ZOOMING') return;
+      const touch = e.touches && e.touches[0];
+      if (!touch) return;
 
-    container.addEventListener('touchstart', onPointerDown, { passive: true });
-    window.addEventListener('touchmove', onPointerMove, { passive: true });
-    window.addEventListener('touchend', onPointerUp);
+      // STRICT RAYCAST CHECK:
+      // If finger is outside the 3D Earth sphere -> unblock native vertical page scroll 100%!
+      if (!isTouchOnEarth(touch.clientX, touch.clientY)) {
+        isDragging = false;
+        return;
+      }
+
+      // Finger is directly ON the Earth sphere -> lock scroll and spin Earth
+      isDragging = true;
+      prevX = touch.clientX;
+      prevY = touch.clientY;
+      velX = 0;
+      velY = 0;
+    };
+
+    const onTouchMove = (e) => {
+      // If finger was outside Earth, DO NOT prevent default -> Browser scrolls page smoothly!
+      if (!isDragging) return;
+
+      const touch = e.touches && e.touches[0];
+      if (!touch) return;
+
+      if (e.cancelable) {
+        e.preventDefault(); // Only lock scroll while finger is actively rotating the 3D Earth
+      }
+
+      const deltaX = touch.clientX - prevX;
+      const deltaY = touch.clientY - prevY;
+      prevX = touch.clientX;
+      prevY = touch.clientY;
+
+      const factor = stageRef.current === 'ARRIVED' ? 0.001 : 0.0035;
+      velY = deltaX * factor;
+      velX = deltaY * (factor * 0.7);
+
+      rotY += velY;
+      rotX = Math.max(-0.55, Math.min(0.55, rotX - velX));
+      earthGroup.quaternion.setFromEuler(new THREE.Euler(rotX, rotY, 0, 'YXZ'));
+    };
+
+    const onTouchEnd = () => {
+      isDragging = false;
+    };
+
+    // Attach Mouse Listeners
+    container.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+
+    // Attach Touch Listeners (touchmove must be non-passive to cancel scroll ONLY when on Earth)
+    container.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchcancel', onTouchEnd);
 
     // ── 10. Resize Observer ───────────────────────────────────────────────
     const handleResize = () => {
@@ -443,13 +520,14 @@ export default function EarthGlobe({
       cancelAnimationFrame(animId);
       resizeObserver.disconnect();
 
-      container.removeEventListener('pointerdown', onPointerDown);
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
+      container.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
 
-      container.removeEventListener('touchstart', onPointerDown);
-      window.removeEventListener('touchmove', onPointerMove);
-      window.removeEventListener('touchend', onPointerUp);
+      container.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
 
       renderer.dispose();
       if (container.contains(renderer.domElement)) {

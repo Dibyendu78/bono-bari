@@ -20,9 +20,11 @@ export default function BookingPage({ onBackToHome, onOpenBookingModal, language
             className="booking-back-btn"
             onClick={onBackToHome}
             title={isBn ? 'হোম পেজে ফিরে যান' : 'Back to Home'}
+            aria-label="Back to Home"
           >
-            <ArrowLeft size={16} />
-            <span>{isBn ? 'মূল পাতায় ফিরুন' : 'Back to Home'}</span>
+            <ArrowLeft size={18} className="booking-back-arrow" />
+            <span className="booking-back-label-desktop">{isBn ? 'মূল পাতায় ফিরুন' : 'Back to Home'}</span>
+            <span className="booking-back-label-mobile">{isBn ? 'মূল পাতায়' : 'Back'}</span>
           </button>
 
           <div className="booking-nav-brand">
@@ -40,7 +42,8 @@ export default function BookingPage({ onBackToHome, onOpenBookingModal, language
               title={isBn ? 'Switch to English' : 'বাংলায় দেখুন'}
             >
               <Globe size={14} />
-              <span>{isBn ? 'English' : 'বাংলা'}</span>
+              <span className="booking-lang-label-desktop">{isBn ? 'English' : 'বাংলা'}</span>
+              <span className="booking-lang-label-mobile">{isBn ? 'EN' : 'বাং'}</span>
             </button>
 
             {/* Direct WhatsApp Call/Chat */}
@@ -53,9 +56,11 @@ export default function BookingPage({ onBackToHome, onOpenBookingModal, language
               target="_blank"
               rel="noopener noreferrer"
               className="booking-wa-pill-btn"
+              title="WhatsApp"
             >
               <MessageCircle size={14} />
-              <span>+91 7076973613</span>
+              <span className="booking-wa-label-desktop">+91 7076973613</span>
+              <span className="booking-wa-label-mobile">{isBn ? 'হোয়াটসঅ্যাপ' : 'WhatsApp'}</span>
             </a>
           </div>
         </div>
@@ -126,6 +131,19 @@ export default function BookingPage({ onBackToHome, onOpenBookingModal, language
             </a>
           </div>
         </div>
+      </div>
+
+      {/* ─── 5. BOTTOM RETURN TO MAIN HOME PAGE BUTTON ─────────────────── */}
+      <div className="booking-bottom-return-wrap">
+        <button
+          type="button"
+          className="booking-bottom-home-btn"
+          onClick={onBackToHome}
+          title={isBn ? 'হোম পেজে ফিরে যান' : 'Return to Home Page'}
+        >
+          <ArrowLeft size={16} />
+          <span>{isBn ? 'মূল ওয়েবসাইটে ফিরে যান' : 'Return to Home Page'}</span>
+        </button>
       </div>
     </div>
   );

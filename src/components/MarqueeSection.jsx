@@ -91,6 +91,37 @@ export default function MarqueeSection({ language = 'en' }) {
     };
   }, [selectedPhotoIndex, handleCloseModal, handleNextPhoto, handlePrevPhoto]);
 
+  // Touch swipe support for smooth mobile lightbox navigation
+  const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(null);
+
+  const handleTouchStart = (e) => {
+    if (e.touches && e.touches[0]) {
+      touchStartXRef.current = e.touches[0].clientX;
+      touchStartYRef.current = e.touches[0].clientY;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartXRef.current === null) return;
+    const endX = e.changedTouches?.[0]?.clientX;
+    const endY = e.changedTouches?.[0]?.clientY;
+    if (endX === undefined || endY === undefined) return;
+
+    const diffX = endX - touchStartXRef.current;
+    const diffY = endY - (touchStartYRef.current || 0);
+
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        handleNextPhoto();
+      } else {
+        handlePrevPhoto();
+      }
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+  };
+
   return (
     <section className={`marquee-section ${isBn ? 'font-bengali' : ''}`} ref={sectionRef}>
       <div className="marquee-rows-container">
@@ -144,8 +175,8 @@ export default function MarqueeSection({ language = 'en' }) {
           })}
         </div>
 
-        {/* Row 3: Smooth continuous drift left (alternate speed) */}
-        <div className="marquee-row marquee-row-drift-left-alt">
+        {/* Row 3: Smooth continuous drift left */}
+        <div className="marquee-row marquee-row-drift-left">
           {ROW_3.map((url, i) => {
             const originalIndex = 14 + (i % 7);
             return (
@@ -174,40 +205,64 @@ export default function MarqueeSection({ language = 'en' }) {
       {selectedPhotoIndex !== null && typeof document !== 'undefined' && createPortal(
         <div className="marquee-modal-backdrop" onClick={handleCloseModal}>
           <div className="marquee-modal-dialog" onClick={(e) => e.stopPropagation()}>
-            {/* Top Toolbar */}
+            {/* Top Toolbar: Balanced 3-Zone Formation */}
             <div className="marquee-modal-topbar">
-              <span className="marquee-modal-badge">
-                🌿 {isBn ? 'বোনো বাড়ি ফটো গ্যালারি • ঝাড়গ্রাম' : 'Bono Bari Eco Resort Gallery • Jhargram'}
-              </span>
-
-              <div className="marquee-modal-top-right">
-                <span className="marquee-modal-counter">
-                  {selectedPhotoIndex + 1} / {PHOTO_GALLERY_IMAGES.length}
+              {/* Left Zone: Resort Gallery Badge */}
+              <div className="marquee-modal-top-left">
+                <span className="marquee-modal-badge">
+                  🌿 {isBn ? 'বোনো বাড়ি ফটো গ্যালারি' : 'Bono Bari Gallery'}
                 </span>
+              </div>
+
+              {/* Center Zone: Perfect 10 / 21 Counter Formation */}
+              <div className="marquee-modal-top-center">
+                <div
+                  className="marquee-modal-counter-formation"
+                  aria-label={`Photo ${selectedPhotoIndex + 1} of ${PHOTO_GALLERY_IMAGES.length}`}
+                >
+                  <span className="counter-digit-current">
+                    {selectedPhotoIndex + 1}
+                  </span>
+                  <span className="counter-divider">/</span>
+                  <span className="counter-digit-total">
+                    {PHOTO_GALLERY_IMAGES.length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Zone: Close Button */}
+              <div className="marquee-modal-top-right">
                 <button
                   type="button"
                   className="marquee-modal-close-btn"
                   onClick={handleCloseModal}
                   title={isBn ? 'বন্ধ করুন (Esc)' : 'Close (Esc)'}
+                  aria-label="Close photo modal"
                 >
                   <X size={20} />
                 </button>
               </div>
             </div>
 
-            {/* Photo Viewport with Prev/Next Navigation */}
-            <div className="marquee-modal-viewport">
+            {/* Photo Viewport with Prev/Next Navigation and Mobile Touch Swipe */}
+            <div
+              className="marquee-modal-viewport"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               <button
                 type="button"
                 className="marquee-modal-nav-btn is-prev"
                 onClick={handlePrevPhoto}
                 title={isBn ? 'আগের ছবি (←)' : 'Previous photo (←)'}
+                aria-label="Previous photo"
               >
                 <ChevronLeft size={28} />
               </button>
 
               <div className="marquee-modal-image-container">
                 <img
+                  key={`modal-img-${selectedPhotoIndex}`}
                   src={PHOTO_GALLERY_IMAGES[selectedPhotoIndex]}
                   alt="Bono Bari Eco Resort Gallery Large View"
                   className="marquee-modal-image"
@@ -219,9 +274,20 @@ export default function MarqueeSection({ language = 'en' }) {
                 className="marquee-modal-nav-btn is-next"
                 onClick={handleNextPhoto}
                 title={isBn ? 'পরবর্তী ছবি (→)' : 'Next photo (→)'}
+                aria-label="Next photo"
               >
                 <ChevronRight size={28} />
               </button>
+            </div>
+
+            {/* Bottom Indicator Progress Track */}
+            <div className="marquee-modal-progress-bar">
+              <div
+                className="marquee-modal-progress-fill"
+                style={{
+                  width: `${((selectedPhotoIndex + 1) / PHOTO_GALLERY_IMAGES.length) * 100}%`
+                }}
+              />
             </div>
           </div>
         </div>,

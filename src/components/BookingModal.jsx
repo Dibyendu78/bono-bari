@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Send, Calendar, User, Phone, Users, Home, MessageSquare, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, X, Send, Calendar, User, Phone, Users, Home, MessageSquare, CheckCircle2 } from 'lucide-react';
 import { TRANSLATIONS } from '../translations';
 import './BookingModal.css';
 
@@ -78,10 +78,29 @@ export default function BookingModal({
   return (
     <div className="booking-overlay" onClick={onClose}>
       <div className={`booking-modal-card ${isBn ? 'font-bengali' : ''}`} onClick={(e) => e.stopPropagation()}>
-        {/* Close Button */}
-        <button type="button" className="booking-close-btn" onClick={onClose}>
-          <X size={20} />
-        </button>
+        {/* Top Control Bar: Explicit Back Button on Left & Close on Right */}
+        <div className="booking-modal-controls">
+          <button
+            type="button"
+            className="booking-modal-back-btn"
+            onClick={onClose}
+            title={isBn ? 'ফিরে যান' : 'Back'}
+            aria-label="Back"
+          >
+            <ArrowLeft size={16} />
+            <span>{isBn ? 'মূল পাতায় ফিরুন' : 'Back'}</span>
+          </button>
+
+          <button
+            type="button"
+            className="booking-close-btn"
+            onClick={onClose}
+            title={isBn ? 'বন্ধ করুন' : 'Close'}
+            aria-label="Close"
+          >
+            <X size={18} />
+          </button>
+        </div>
 
         {!submitted ? (
           <>

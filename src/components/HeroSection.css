@@ -189,7 +189,7 @@
   font-family: 'Kanit', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   line-height: 0.88;
   white-space: nowrap;
   width: 100%;
@@ -198,6 +198,15 @@
   padding: 0;
   font-size: clamp(3rem, 15vw, 240px);
   user-select: none;
+
+  /* Crisp White/Silver Gradient Effect (Exact Spec Matching Screenshot 12-44-59) */
+  background: linear-gradient(180deg, #8a9ba9 0%, #c8d7e2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: none;
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 /* Move down only for Bengali so 'বোনো বাড়ি' has plenty of breathing room below navbar */
@@ -206,7 +215,7 @@
   padding-top: 6px;
 }
 
-/* Calibrated size and line-height for Bengali so 'বোনো বাড়ি' is 100% visible without clipping matras */
+/* Calibrated size and line-height for Bengali matching the clean white/silver gradient */
 .hero-section.font-bengali .hero-heading-text {
   font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
   font-weight: 700;
@@ -215,6 +224,14 @@
   font-size: clamp(2.4rem, 9.6vw, 150px);
   padding: 6px 16px;
   max-width: 100%;
+
+  /* Crisp White/Silver Gradient for Bengali */
+  background: linear-gradient(180deg, #8a9ba9 0%, #c8d7e2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: none;
 }
 
 /* Hero Earth Globe Positioner - Perfectly sized with generous breathing space around the sphere */
